@@ -1,0 +1,29 @@
+/* Update the Casual.css file with a fixed width for images */
+.casual-section {
+  padding: 40px;
+  color: #ffffff; /* Text color */
+}
+
+.section-title {
+  font-size: 42px; /* Title font size */
+  margin-bottom: 20px;
+}
+
+.slider-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.slide {
+  margin: 0 10px;
+  width: 250px; /* Set a fixed width for the images */
+}
+
+.slide img {
+  max-width: 100%; /* Ensure the images don't exceed their container's width */
+}
+
+
+  

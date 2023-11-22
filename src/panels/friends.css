@@ -1,0 +1,94 @@
+/* Updated friends.css */
+
+.friends-panel {
+  position: fixed;
+  top: 84px; /* Adjust this value based on your navbar height */
+  right: -500px; /* Start off-screen on the right */
+  width: 400px; /* Adjust the width as needed */
+  height: calc(100% - 60px); /* Adjust this value based on your navbar height */
+  background-color: #000000;
+  transition: right 0.5s ease-in-out;
+  border-left: 4px solid rgb(37, 102, 80);
+  padding: 20px;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.friends-panel.open {
+  right: 0; /* Move to the right of the screen */
+}
+
+.friend-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column; /* Display items in a column */
+}
+
+.friend-list-item {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.friend-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.friend-name {
+  font-size: 16px;
+}
+
+.friends-panel h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.filter-input {
+  padding: 5px;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.friend-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.friend-status {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.friend-invite {
+  margin-left: auto;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.connected {
+  color: #4caf50; /* Green color for connected status */
+}
+
+.offline {
+  color: #f44336; /* Red color for offline status */
+}
+
+.on-game {
+  color: #2196f3; /* Blue color for on game status */
+}
+
+.idle {
+  color: #ffc107; /* Yellow color for idle status */
+}
+
+.friend-status.in-game {
+  color: #4285f4; /* Blue color for in-game status */
+}

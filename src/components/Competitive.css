@@ -1,0 +1,29 @@
+/* Add this Competitive.css file for styling */
+.competitive-section {
+  padding: 40px;
+  color: #ffffff; /* Text color */
+}
+
+.section-title {
+  font-size: 32px; /* Title font size */
+  margin-bottom: 20px;
+}
+
+.slider-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.slide {
+  margin: 0 10px;
+  max-width: 250px; /* Set a maximum width for the images */
+}
+
+.slide img {
+  max-width: 100%; /* Ensure the images don't exceed their container's width */
+}
+
+  
+  

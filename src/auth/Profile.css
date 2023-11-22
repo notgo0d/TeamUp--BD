@@ -1,0 +1,32 @@
+/* Profile.css */
+
+.profile-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-content {
+  display: flex;
+  align-items: center;
+  width: 150px; /* Adjust the width of the profile container */
+}
+
+.profile-content img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 8px; /* Adjust the spacing between the profile picture and the username */
+}
+
+.profile-content img.default-cat-picture {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.profile-username {
+  margin-left: 8px; /* Adjust the spacing between the profile picture and the username */
+}
+
+

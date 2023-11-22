@@ -1,0 +1,128 @@
+/* Updated team.css */
+
+.team-panel {
+  position: fixed;
+  top: 84px; /* Adjust this value based on your navbar height */
+  left: 0px; /* Adjust the negative value to move it more to the right */
+  width: 300px; /* Adjust the width as needed */
+  height: calc(100% - 60px); /* Adjust this value based on your navbar height */
+  background-color: #000000; /* Dark background color */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: left 0.5s ease-in-out;
+  z-index: 1000;
+  border-right: 4px solid #256650; /* Green color for the border, adjust as needed */
+  padding: 20px;
+  color: #ffffff;
+}
+
+.team-panel.open {
+  left: 0; /* Move to the left of the screen */
+}
+
+.team-panel h2 {
+  background-color: #4caf50; /* Green color for the header background */
+  color: #fff;
+  padding: 10px;
+  margin: 0;
+  border-bottom: 2px solid #fff; /* White border for separation */
+}
+
+.filter-input {
+  width: calc(100% - 20px);
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #333;
+  background-color: #fff; /* White background color for input */
+}
+
+.team-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Display items in a column */
+}
+
+.team-list-item {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+
+.team-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.team-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.team-name {
+  font-weight: bold;
+  color: #fff;
+}
+
+.team-role {
+  color: #888;
+}
+
+.team-invite {
+  margin-left: auto;
+  font-size: 20px;
+  cursor: pointer;
+  color: #007bff;
+}
+
+/* Styles for Create a Team */
+
+.create-team-section {
+  margin-top: 20px;
+}
+
+.create-team-section h2 {
+  background-color: #007bff; /* Blue color for the header background */
+  color: #fff;
+  padding: 10px;
+  margin: 0;
+  border-bottom: 2px solid #fff; /* White border for separation */
+  cursor: pointer;
+}
+
+.create-team-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-team-input {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #333;
+  background-color: #fff; /* White background color for input */
+}
+
+.create-team-button {
+  background-color: #4caf50; /* Green color for the button background */
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-team-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+
+
