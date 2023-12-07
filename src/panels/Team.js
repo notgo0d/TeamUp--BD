@@ -1,29 +1,46 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Team.css';
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+} from 'firebase/firestore';
+import {
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL,
+} from 'firebase/storage';
 import { storage, firestore } from '../bd/firebase';
-import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+const TeamMember = ({ member, index, onAddMember }) => (
+  <li key={member.id} className="team-list-item">
+    <img src={member.avatar} alt={`${member.name}'s avatar`} className="team-avatar" />
+    <div className="team-info">
+      <span className="team-name">{member.name}</span>
+      <span className="team-role">{member.role}</span>
+    </div>
+    {index !== 0 && (
+      <span className="team-invite" onClick={() => onAddMember(index)}>
+        +
+      </span>
+    )}
+  </li>
+);
 
 const Team = ({ closePanel, isOpen, loggedInUserName }) => {
-  const [filter, setFilter] = useState('');
   const [isCreateTeamOpen, setCreateTeamOpen] = useState(false);
   const [isMyTeamOpen, setMyTeamOpen] = useState(false);
   const [teamData, setTeamData] = useState([]);
   const [teamMembers, setTeamMembers] = useState([
     { id: 1, name: loggedInUserName, role: 'Team Leader', avatar: 'https://placekitten.com/40/40' },
-    { id: 2, name: '+ Add Member', role: '', avatar: '' },
-    { id: 3, name: '+ Add Member', role: '', avatar: '' },
-    { id: 4, name: '+ Add Member', role: '', avatar: '' },
-    { id: 5, name: '+ Add Member', role: '', avatar: '' },
+    ...Array.from({ length: 4 }).map((_, index) => ({ id: index + 2, name: '+ Add Member', role: '', avatar: '' })),
   ]);
 
   const panelRef = useRef(null);
   const teamListRef = useRef(null);
   const fileInputRef = useRef(null);
-
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
-  };
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -34,7 +51,6 @@ const Team = ({ closePanel, isOpen, loggedInUserName }) => {
 
     if (isOpen) {
       document.addEventListener('mousedown', handleOutsideClick);
-      // Scroll to the top when the panel is opened
       if (teamListRef.current) {
         teamListRef.current.scrollTop = 0;
       }
@@ -64,9 +80,15 @@ const Team = ({ closePanel, isOpen, loggedInUserName }) => {
       const teamType = event.target.elements.teamType.value;
       const teamPhoto = fileInputRef.current.files[0];
 
+      // Ask for confirmation
+      const isConfirmed = window.confirm(`Are you sure you want to create the team "${teamName}"?`);
+
+      if (!isConfirmed) {
+        return; // If the user cancels the confirmation, exit the function
+      }
+
       // Upload team photo to Firebase Storage
-      const storageRef = storage.ref();
-      const photoRef = storageRef.child(`team-photos/${teamPhoto.name}`);
+      const photoRef = storageRef(storage, `team-photos/${teamPhoto.name}`);
       await uploadBytes(photoRef, teamPhoto);
 
       // Get the download URL of the uploaded photo
@@ -139,7 +161,6 @@ const Team = ({ closePanel, isOpen, loggedInUserName }) => {
     }
   }, [isOpen, loggedInUserName]);
 
-
   return (
     <div ref={panelRef} className={`team-panel ${isOpen ? 'open' : ''}`}>
       <h2 onClick={toggleMyTeam}>My Team</h2>
@@ -148,7 +169,7 @@ const Team = ({ closePanel, isOpen, loggedInUserName }) => {
           {teamData.map((team) => (
             <div key={team.id}>
               <p>{team.name} - {team.game} - {team.type}</p>
-              {team.photo && <img src={URL.createObjectURL(team.photo)} alt={`${team.name}'s team`} style={{ width: '100px', height: '100px' }} />}
+              {team.photo && <img src={team.photo} alt={`${team.name}'s team`} style={{ width: '100px', height: '100px' }} />}
             </div>
           ))}
         </div>
@@ -192,18 +213,7 @@ const Team = ({ closePanel, isOpen, loggedInUserName }) => {
 
             <ul className="team-list">
               {teamMembers.map((member, index) => (
-                <li key={member.id} className="team-list-item">
-                  <img src={member.avatar} alt={`${member.name}'s avatar`} className="team-avatar" />
-                  <div className="team-info">
-                    <span className="team-name">{member.name}</span>
-                    <span className="team-role">{member.role}</span>
-                  </div>
-                  {index !== 0 && (
-                    <span className="team-invite" onClick={() => handleAddMember(index)}>
-                      +
-                    </span>
-                  )}
-                </li>
+                <TeamMember key={member.id} member={member} index={index} onAddMember={handleAddMember} />
               ))}
             </ul>
 
@@ -218,3 +228,4 @@ const Team = ({ closePanel, isOpen, loggedInUserName }) => {
 };
 
 export default Team;
+
