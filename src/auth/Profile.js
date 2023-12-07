@@ -1,9 +1,10 @@
+// Profile.js
 import React, { useEffect } from 'react';
 import './Profile.css';
 
 const Profile = ({ userData, handleLogout, setProfileOpen }) => {
   useEffect(() => {
-    console.log('UserData:', userData); // Add this line
+    console.log('UserData:', userData);
   }, [userData]);
 
   const toggleProfile = () => {
@@ -19,7 +20,7 @@ const Profile = ({ userData, handleLogout, setProfileOpen }) => {
           ) : (
             <img className="profile-image default-cat-picture" src="path/to/cat-picture.jpg" alt="Default Cat" />
           )}
-          <span className="username">{userData.username}</span>
+          <span className="profile-username">{userData.username}</span>
         </div>
       )}
     </div>
@@ -27,6 +28,9 @@ const Profile = ({ userData, handleLogout, setProfileOpen }) => {
 };
 
 export default Profile;
+
+
+
 
 
 

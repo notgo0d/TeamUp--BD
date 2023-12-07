@@ -11,7 +11,7 @@ const firebaseConfig = {
   projectId: 'teamup-bfe0d',
   storageBucket: 'teamup-bfe0d.appspot.com',
   messagingSenderId: '708503680216',
-  appId: '1:708503680216:web:YOUR_APP_ID',
+  appId: '1:708503680216:web:421baa0d8e76e30fb5d3ad'
 };
 
 const app = initializeApp(firebaseConfig);

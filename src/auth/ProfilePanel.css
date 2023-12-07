@@ -1,0 +1,44 @@
+/* ProfilePanel.css */
+
+.profile-panel {
+    position: fixed;
+    top: 90px;
+    right: 1px;
+    width: 50px;
+    height: auto;
+    background-color: #000000;
+    transition: right 0.5s ease-in-out;
+    border-left: 4px solid rgb(37, 102, 80);
+    border-bottom: 4px solid rgb(37, 102, 80);
+    padding: 35px;
+    color: #000000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+  
+  .profile-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Set the direction to column */
+  }
+  
+  .profile-panel li {
+    margin-bottom: 10px; /* Adjust the spacing between buttons */
+  }
+  
+  .logout-button,
+  .option-button,
+  .profile-button {
+    padding: 10px 20px;
+    background-color: #ff4d4f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: -15px; /* Adjust the negative margin to move the buttons more to the left */
+  }
+  
+  
+  

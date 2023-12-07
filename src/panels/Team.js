@@ -139,11 +139,12 @@ const Team = ({ closePanel, isOpen, loggedInUserName }) => {
     }
   }, [isOpen, loggedInUserName]);
 
+
   return (
     <div ref={panelRef} className={`team-panel ${isOpen ? 'open' : ''}`}>
       <h2 onClick={toggleMyTeam}>My Team</h2>
       {isMyTeamOpen && (
-        <div>
+        <div className="team-list-container">
           {teamData.map((team) => (
             <div key={team.id}>
               <p>{team.name} - {team.game} - {team.type}</p>
@@ -217,4 +218,3 @@ const Team = ({ closePanel, isOpen, loggedInUserName }) => {
 };
 
 export default Team;
-

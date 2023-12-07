@@ -15,6 +15,36 @@
   color: #ffffff;
 }
 
+
+.team-list-container {
+  max-height: 200px; /* Set the desired maximum height for the team list */
+  overflow-y: auto; /* Enable vertical scrolling if the content exceeds the container height */
+  margin-bottom: 10px; /* Adjust as needed for spacing */
+}
+
+.team-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto; /* Enable vertical scrolling if the content exceeds the container height */
+  max-height: 150px; /* Set the desired maximum height for the team members list */
+  /* Add additional styles for scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #256650 #000000;
+}
+
+.team-list::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+.team-list::-webkit-scrollbar-thumb {
+  background-color: #256650; /* Green color for the scrollbar thumb */
+}
+
+.team-list::-webkit-scrollbar-track {
+  background-color: #000000; /* Dark background color for the scrollbar track */
+}
+
 .team-panel.open {
   left: 0; /* Move to the left of the screen */
 }

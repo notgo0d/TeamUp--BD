@@ -1,18 +1,20 @@
 // Navbar.js
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './navbar.css';
 import Login from '../auth/Login';
 import Signup from '../auth/Signup';
 import FriendsPanel from '../panels/FriendsPanel';
 import Team from '../panels/Team';
-import Profile from '../auth/Profile';
+import ProfilePanel from '../auth/ProfilePanel';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isLoginOpen, setLoginOpen] = useState(true);
   const [isSignupOpen, setSignupOpen] = useState(false);
   const [isFriendsPanelOpen, setFriendsPanelOpen] = useState(false);
   const [isTeamPanelOpen, setTeamPanelOpen] = useState(false);
+  const [isProfilePanelOpen, setProfilePanelOpen] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
 
@@ -47,7 +49,12 @@ const Navbar = () => {
   const handleLogin = (user) => {
     setLoggedIn(true);
     // Assuming user.displayName is where the username is stored in Firebase
-    setUserData({ uid: user.uid, email: user.email, username: user.displayName, profilePictureUrl: user.photoURL });
+    setUserData({
+      uid: user.uid,
+      email: user.email,
+      username: user.displayName,
+      profilePictureUrl: user.photoURL,
+    });
     console.log('User Data:', user.displayName); // Add this line
     closeLogin();
   };
@@ -55,32 +62,42 @@ const Navbar = () => {
   const handleLogout = () => {
     setLoggedIn(false);
     setUserData(null);
+    setProfilePanelOpen(false); // Close the profile panel on logout
   };
 
   const toggleTeamPanel = () => {
     setTeamPanelOpen((prev) => !prev);
   };
 
+  const toggleProfilePanel = () => {
+    setProfilePanelOpen((prev) => !prev);
+  };
+
   return (
     <nav>
       <ul className="left-links">
         <li>
-          <Link to="/homePage">Home</Link>
+          <img
+            src={`${process.env.PUBLIC_URL}/T.png`}  // Use process.env.PUBLIC_URL to get the base URL
+            alt="Logo"
+            style={{ width: '40px', height: '40px', cursor: 'pointer' }}
+            onClick={() => navigate('/homePage')}
+          />
         </li>
         {isLoggedIn && (
-          <>
-            <li>
-              <div onClick={toggleTeamPanel}>
-                <Link to="/team">Team</Link>
-              </div>
-              {isTeamPanelOpen && <Team closePanel={() => setTeamPanelOpen(false)} />}
-            </li>
-          </>
+          <li>
+            <div onClick={toggleTeamPanel}>
+              <Link to="/team">Team</Link>
+            </div>
+            {isTeamPanelOpen && <Team closePanel={() => setTeamPanelOpen(false)} />}
+          </li>
         )}
       </ul>
       <ul className="right-links">
         <li>
-          <Link to="/publications">Publications</Link>
+          <Link to="/publication" onClick={() => navigate('/publication')}>
+            Publications
+          </Link>
         </li>
         {isLoggedIn && (
           <>
@@ -91,11 +108,14 @@ const Navbar = () => {
             </li>
             <li className="login-link">
               {userData ? (
-                <Profile userData={userData} handleLogout={handleLogout} />
+                <div>
+                  <span onClick={toggleProfilePanel}>User</span>
+                  {isProfilePanelOpen && (
+                    <ProfilePanel handleLogout={handleLogout} setProfileOpen={setProfilePanelOpen} />
+                  )}
+                </div>
               ) : (
-                <Link to="#">
-                  User
-                </Link>
+                <Link to="#">User</Link>
               )}
             </li>
           </>
@@ -135,6 +155,10 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+
 
 
 
