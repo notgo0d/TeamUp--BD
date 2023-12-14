@@ -2,59 +2,57 @@
 
 .team-panel {
   position: fixed;
-  top: 84px; /* Adjust this value based on your navbar height */
-  left: 0px; /* Adjust the negative value to move it more to the right */
-  width: 300px; /* Adjust the width as needed */
-  height: calc(100% - 60px); /* Adjust this value based on your navbar height */
-  background-color: #000000; /* Dark background color */
+  top: 84px;
+  left: 0px;
+  width: 300px;
+  height: calc(100% - 60px);
+  background-color: #000000;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transition: left 0.5s ease-in-out;
   z-index: 1000;
-  border-right: 4px solid #256650; /* Green color for the border, adjust as needed */
+  border-right: 4px solid #256650;
   padding: 20px;
   color: #ffffff;
 }
 
-
 .team-list-container {
-  max-height: 200px; /* Set the desired maximum height for the team list */
-  overflow-y: auto; /* Enable vertical scrolling if the content exceeds the container height */
-  margin-bottom: 10px; /* Adjust as needed for spacing */
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
 }
 
 .team-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  overflow-y: auto; /* Enable vertical scrolling if the content exceeds the container height */
-  max-height: 150px; /* Set the desired maximum height for the team members list */
-  /* Add additional styles for scrollbar */
+  overflow-y: auto;
+  max-height: 150px;
   scrollbar-width: thin;
   scrollbar-color: #256650 #000000;
 }
 
 .team-list::-webkit-scrollbar {
-  width: 8px; /* Set the width of the scrollbar */
+  width: 8px;
 }
 
 .team-list::-webkit-scrollbar-thumb {
-  background-color: #256650; /* Green color for the scrollbar thumb */
+  background-color: #256650;
 }
 
 .team-list::-webkit-scrollbar-track {
-  background-color: #000000; /* Dark background color for the scrollbar track */
+  background-color: #000000;
 }
 
 .team-panel.open {
-  left: 0; /* Move to the left of the screen */
+  left: 0;
 }
 
 .team-panel h2 {
-  background-color: #4caf50; /* Green color for the header background */
+  background-color: #4caf50;
   color: #fff;
   padding: 10px;
   margin: 0;
-  border-bottom: 2px solid #fff; /* White border for separation */
+  border-bottom: 2px solid #fff;
 }
 
 .filter-input {
@@ -64,7 +62,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   color: #333;
-  background-color: #fff; /* White background color for input */
+  background-color: #fff;
 }
 
 .team-list {
@@ -72,7 +70,7 @@
   padding: 0;
   margin: 0;
   display: flex;
-  flex-direction: column; /* Display items in a column */
+  flex-direction: column;
 }
 
 .team-list-item {
@@ -116,14 +114,18 @@
 
 .create-team-section {
   margin-top: 20px;
+  background-color: #333;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .create-team-section h2 {
-  background-color: #007bff; /* Blue color for the header background */
+  background-color: #007bff;
   color: #fff;
   padding: 10px;
   margin: 0;
-  border-bottom: 2px solid #fff; /* White border for separation */
+  border-bottom: 2px solid #fff;
   cursor: pointer;
 }
 
@@ -132,17 +134,48 @@
   flex-direction: column;
 }
 
-.create-team-input {
+.create-team-input,
+.create-team-radio {
   margin: 10px 0;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   color: #333;
-  background-color: #fff; /* White background color for input */
+  background-color: #fff;
+}
+
+.create-team-type {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+.create-team-type label {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.create-team-radio input {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.create-team-radio span {
+  margin-left: 5px;
+}
+
+.create-team-radio label {
+  cursor: pointer;
 }
 
 .create-team-button {
-  background-color: #4caf50; /* Green color for the button background */
+  background-color: #4caf50;
   color: #fff;
   padding: 10px;
   border: none;
@@ -151,8 +184,6 @@
 }
 
 .create-team-button:hover {
-  background-color: #45a049; /* Darker green on hover */
+  background-color: #45a049;
 }
-
-
 

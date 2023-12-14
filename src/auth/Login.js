@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { Link } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../bd/firebase';
 
 const Login = ({ closeLogin, onLogin }) => {
-  const [email, setEmail] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); // New state for error message
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -16,8 +17,14 @@ const Login = ({ closeLogin, onLogin }) => {
     try {
       const authObject = getAuth();
 
-      // Sign in user with email and password
-      const userCredential = await signInWithEmailAndPassword(authObject, email, password);
+      // Check if the identifier (email or username), password are provided
+      if (!identifier || !password) {
+        setErrorMessage('Please enter email/username and password.');
+        return;
+      }
+
+      // Sign in user with email or username and password
+      const userCredential = await signInWithEmailAndPassword(authObject, identifier, password);
 
       // Call the onLogin prop to update the login state in the parent component
       onLogin(userCredential.user);
@@ -29,33 +36,53 @@ const Login = ({ closeLogin, onLogin }) => {
       closeLogin();
     } catch (error) {
       console.error('Error during login:', error.message);
-
-      // Update the error message state
-      setErrorMessage('Invalid email or password. Please try again.');
+      setErrorMessage('Invalid email/username or password. Please try again.');
     }
   };
 
   return (
     <div className="auth-modal">
       <span className="close-btn" onClick={closeLogin}>×</span>
-      <h2>Login</h2>
+      <h2>Ready to teamUp!</h2>
       <form onSubmit={handleLogin}>
-        {/* Your form fields */}
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <label htmlFor="identifier">Email/Username:</label>
+        <input
+          type="text"
+          id="identifier"
+          value={identifier}
+          onChange={(e) => setIdentifier(e.target.value)}
+        />
+
         <label htmlFor="password">Password:</label>
-        <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
         <button type="submit">Login</button>
 
-        {/* Display error message if present */}
         {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+        {/* Link to the signup page with updated styles */}
+        <p className="signup-link">
+          Don't have an account? <Link to="/signup" style={{ color: '#4caf50', fontSize: '14px' }}>Sign up</Link>
+        </p>
       </form>
     </div>
   );
 };
 
 export default Login;
+
+
+
+
+
+
+
+
 
 
 

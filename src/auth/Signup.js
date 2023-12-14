@@ -1,24 +1,32 @@
 // Signup.js
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Signup.css';
+import Login from './Login';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, collection, doc, setDoc, getDoc } from 'firebase/firestore';
-import { auth, firestore } from '../bd/firebase';
+import { firestore } from '../bd/firebase';
 
 const Signup = ({ closeSignup }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [username, setUsername] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoginOpen, setLoginOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
     try {
-      const authObject = getAuth();
+      if (password !== confirmPassword) {
+        setErrorMessage('Passwords do not match. Please enter matching passwords.');
+        return;
+      }
 
-      // Check if the username or email is already taken
+      const authObject = getAuth();
       const usernameDoc = await getDoc(doc(firestore, 'usernames', username));
       const emailDoc = await getDoc(doc(firestore, 'emails', email));
 
@@ -32,49 +40,61 @@ const Signup = ({ closeSignup }) => {
         return;
       }
 
-      // Create user in Firebase Authentication with email, password, and additional data (username)
       const userCredential = await createUserWithEmailAndPassword(authObject, email, password);
       const user = userCredential.user;
 
-      // Add user data to Firestore (including username)
       await setDoc(doc(firestore, 'users', user.uid), {
         email: user.email,
         username: username,
       });
 
-      // Add username and email to separate collections to check for duplicates
       await setDoc(doc(firestore, 'usernames', username), { uid: user.uid });
       await setDoc(doc(firestore, 'emails', email), { uid: user.uid });
 
-      // Close the signup modal
+      navigate('/login');
       closeSignup();
     } catch (error) {
       console.error('Error during signup:', error.message);
     }
   };
 
+  const toggleLogin = () => {
+    setLoginOpen(!isLoginOpen);
+    closeSignup();
+  };
+
   return (
     <div className="auth-modal">
       <span className="close-btn" onClick={closeSignup}>×</span>
-      <h2>Sign Up</h2>
+      <h2>Welcome Gamer!</h2>
       <form onSubmit={handleSignup}>
         <label htmlFor="email">Email:</label>
         <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        
         <label htmlFor="password">Password:</label>
         <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        
+        <label htmlFor="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+
         <label htmlFor="username">Username:</label>
         <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
 
         <button type="submit">Sign Up</button>
-
-        {/* Display error message if present */}
         {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <p>Have an account? <span className="login-link" onClick={toggleLogin}>Login</span></p>
       </form>
+
+      {isLoginOpen && <Login closeLogin={() => setLoginOpen(false)} />}
     </div>
   );
 };
 
 export default Signup;
+
+
+
+
 
 
 

@@ -48,6 +48,16 @@
   background-color: #218838;
 }
 
+.auth-modal .login-link {
+  color: #25ad45; /* Green color for the "Have an account? Login" link */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.auth-modal .login-link:hover {
+  text-decoration: underline;
+}
+
 .close-btn {
   position: absolute;
   top: 10px;
@@ -68,3 +78,5 @@
   color: red;
   margin-top: 5px;
 }
+
+
